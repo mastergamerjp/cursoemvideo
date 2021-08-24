@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Verificador de idade</title>
+        
+        <style>
+            body{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+
+                background-color: #2196f3;
+
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            section{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                padding: 20px;
+
+                background-color: white;
+                width: 400px;
+                /*height: 300px;*/
+                border-radius: 20px;
+                box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.349);
+
+                color: rgb(19, 19, 19);
+            }
+            
+            img{
+                width: 300px;
+                height: 300px;
+                border-radius: 100%;
+            }
+
+            div{
+                padding: 2px;
+            }
+            
+            h1{
+            	font-size: 48px;
+            }
+
+            h2{
+            	font-size: 32px;
+            }
+
+            .msg{
+            	margin-bottom: 5px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <header><h1>Verificador de idade</h1></header>
+        <section>
+            <div class="form">
+                <p>
+                    <label for="ano">Ano de nascimento:</label>
+                    <input type="number" name="ano" id="ano" min="1">
+                </p>
+                <p>
+                    <p>Sexo:</p>
+                    <input type="radio" name="sexo" id="sexoM">
+                    <label for="sexoM">Masculino</label>
+
+                    <input type="radio" name="sexo" id="sexoF">
+                    <label for="sexoF">Feminino</label>
+                </p>
+
+                <p>
+                    <input type="button" value="Verificar" onclick="verificar()">
+                </p>
+            </div>
+            <div class="res">
+                <p>Preencha os dados acima para ver o resultado.</p>
+            </div>
+        </section>
+        <footer><h5>Por mastergamerjp</h5></footer>
+
+        <script>
+            function verificar() {
+                var data = new Date()
+                var ano = data.getFullYear()
+                var fano = document.querySelector('#ano')
+                var res = document.querySelector('.res')
+                if(fano.value.length == 0 ){
+                    alert('[ERRO] Verifique os dados e tente novamente.')
+                } else {
+                    var sex = document.getElementsByName('sexo')
+                    var idade = ano - Number(fano.value)
+                    var gen = ''
+                    var img = document.createElement('img')
+                    img.setAttribute('id', 'foto')
+                    if(idade < 0){
+                        alert('[ERRO] Valor de idade inválido.')
+                    } 
+                    if(sex[0].checked) {
+                        gen = 'Homem'
+                        if(idade <= 2){
+                            //BEBE
+                            img.setAttribute('src', 'foto-bebe-masculino.jpg')
+                        } else if(idade <= 12 && idade > 0) {
+                            //CRIANÇA
+                            img.setAttribute('src', 'foto-crianca-masculino.jpg')
+                        } else if(idade <= 17 && idade > 0) {
+                            //JOVEM
+                            img.setAttribute('src', 'foto-jovem-masculino.jpg')
+                        } else if(idade <= 50 && idade > 0) {
+                            //ADULTO
+                            img.setAttribute('src', 'foto-adulto-masculino.jpg')
+                        } else if (idade <= 121 && idade > 0){
+                            //IDOSO
+                            img.setAttribute('src', 'foto-idoso-masculino.jpg')
+                        } else {
+                            img.setAttribute('src', 'foto-kian.png')
+                        }
+                        
+                    } else if (sex[1].checked) {
+                        gen = 'Mulher'
+                        if(idade <= 2){
+                            //BEBE
+                            img.setAttribute('src', 'foto-bebe-feminino.jpg')
+                        } else if(idade <= 12 && idade > 0) {
+                            //CRIANÇA
+                            img.setAttribute('src', 'foto-crianca-feminino.jpg')
+                        } else if(idade <= 17 && idade > 0) {
+                            //JOVEM
+                            img.setAttribute('src', 'foto-jovem-feminino.jpg')
+                        } else if(idade <= 50 && idade > 0) {
+                            //ADULTO
+                            img.setAttribute('src', 'foto-adulto-feminino.jpg')
+                        } else if (idade <= 121 && idade > 0){
+                            //IDOSO
+                            img.setAttribute('src', 'foto-idoso-feminino.jpg')
+                        } else {
+                            img.setAttribute('src', 'foto-rainhaelizabeth.jpg')
+                        }
+                        
+                    } else {
+                        alert('[ERRO] Verifique os dados na sessão "Sexo"')
+                    }
+                    if(idade == 1){
+                        res.innerHTML = `Detectamos ${gen} com ${idade} ano`
+                        
+                    } else {
+                        res.innerHTML = `Detectamos ${gen} com ${idade} anos`
+                    }
+                    res.appendChild(img)
+                    res.style.textAlign = 'center'
+                    
+                    
+                }
+                //fano.value > ano
+            }
+        </script>
+    </body>
+</html>
